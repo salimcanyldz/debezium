@@ -1,0 +1,54 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'com.diffplug.spotless' version '5.11.1'
+}
+
+group = 'com.payjinn'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'io.debezium:debezium-embedded:1.6.0.Final'
+	implementation 'io.debezium:debezium-api:1.6.0.Final'
+	implementation 'io.debezium:debezium-connector-mysql:1.6.0.Final'
+	implementation 'org.postgresql:postgresql:42.2.23'
+	implementation 'mysql:mysql-connector-java:8.0.26'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+spotless {
+  java {
+    importOrder()
+    removeUnusedImports()
+    googleJavaFormat('1.7')
+  }
+
+  groovyGradle {
+    greclipse()
+    endWithNewline()
+    indentWithSpaces(2)
+  }
+}
+
+
+test {
+	useJUnitPlatform()
+}
